@@ -100,3 +100,7 @@ class Base():
         alert_text = alert.text
         alert.accept()
         assert alert_text == value, f"Field value '{alert_text}' does not match expected value '{value}'"
+
+    """Method assert error message displayed"""
+    def assert_error_message(self, element):
+        assert element.is_displayed(), "Error message not displayed but must"

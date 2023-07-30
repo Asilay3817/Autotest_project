@@ -8,7 +8,7 @@ from pages.main_page import MainPage
 from pages.overview_page import OverviewPage
 
 
-def test_1():
+def test_by_product1():
     from selenium.webdriver.chrome.options import Options
     o = Options()
     o.add_experimental_option("detach", True)

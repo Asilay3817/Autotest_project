@@ -21,6 +21,7 @@ class LoginPage(Base):
     username_field = "//input[@id='user-name']"
     password_field = "//input[@id='password']"
     login_button = "//input[@id='login-button']"
+    error_message = "//div[@class='error-message-container error']"
 
     #Getters
 
@@ -32,6 +33,9 @@ class LoginPage(Base):
 
     def get_login_button(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.login_button)))
+
+    def get_error_message(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.error_message)))
 
 
 
@@ -62,12 +66,25 @@ class LoginPage(Base):
     def sign_in(self):
         self.driver.get(self.url)
         # self.driver.maximize_window()
-        self.click_username_field()
         self.send_login()
         self.assert_field_value(self.get_username_field(), self.login_name)
-        self.click_password_field()
         self.send_password()
         self.assert_field_value(self.get_password_field(), self.login_password)
         self.click_login_button()
         self.get_current_url()
         self.assert_url('https://www.saucedemo.com/inventory.html')
+
+    def sign_in_with_empty_login(self):
+        self.driver.get(self.url)
+        self.send_password()
+        self.assert_field_value(self.get_password_field(), self.login_password)
+        self.click_login_button()
+        self.assert_error_message(self.get_error_message())
+
+
+    def sign_in_with_empty_password(self):
+        self.driver.get(self.url)
+        self.send_login()
+        self.assert_field_value(self.get_username_field(), self.login_name)
+        self.click_login_button()
+        self.assert_error_message(self.get_error_message())
