@@ -6,9 +6,10 @@ from pages.finish_page import FinishPage
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from pages.overview_page import OverviewPage
+from conftest import set_up
 
 
-def test_by_product1():
+def test_by_product1(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()
     o.add_experimental_option("detach", True)
@@ -16,7 +17,6 @@ def test_by_product1():
     o.add_argument("--window-size=1800,900")
     driver = webdriver.Chrome(options=o)
 
-    print('\nStart test')
 
     lp = LoginPage(driver)
     lp.sign_in()

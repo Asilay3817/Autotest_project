@@ -1,9 +1,10 @@
+import pytest
 from selenium import webdriver
 from pages.login_page import LoginPage
+from conftest import set_up
 
-
-
-def test_positive_flou_login():
+@pytest.mark.third
+def test_login(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()
     o.add_experimental_option("detach", True)
@@ -11,7 +12,6 @@ def test_positive_flou_login():
     o.add_argument("--window-size=1800,900")
     driver = webdriver.Chrome(options=o)
 
-    print('\nStart test')
 
     lp = LoginPage(driver)
     lp.sign_in()
@@ -20,7 +20,9 @@ def test_positive_flou_login():
     driver.close()
     driver.quit()
 
-def test_login_is_empty():
+
+@pytest.mark.first
+def test_login_user_field_is_empty(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()
     o.add_experimental_option("detach", True)
@@ -28,7 +30,6 @@ def test_login_is_empty():
     o.add_argument("--window-size=1800,900")
     driver = webdriver.Chrome(options=o)
 
-    print('\nStart test')
 
     lp = LoginPage(driver)
     lp.sign_in_with_empty_login()
@@ -38,7 +39,8 @@ def test_login_is_empty():
     driver.quit()
 
 
-def test_password_is_empty():
+@pytest.mark.second
+def test_login_password_field_is_empty(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()
     o.add_experimental_option("detach", True)
@@ -46,7 +48,6 @@ def test_password_is_empty():
     o.add_argument("--window-size=1800,900")
     driver = webdriver.Chrome(options=o)
 
-    print('\nStart test')
 
     lp = LoginPage(driver)
     lp.sign_in_with_empty_password()

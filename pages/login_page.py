@@ -65,7 +65,6 @@ class LoginPage(Base):
 
     def sign_in(self):
         self.driver.get(self.url)
-        # self.driver.maximize_window()
         self.send_login()
         self.assert_field_value(self.get_username_field(), self.login_name)
         self.send_password()
