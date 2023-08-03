@@ -3,6 +3,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from utilities.logger import Logger
+
+
 class LoginPage(Base):
 
 
@@ -64,6 +67,7 @@ class LoginPage(Base):
     #Methods
 
     def sign_in(self):
+        Logger.add_start_step(method='sign_in')
         self.driver.get(self.url)
         self.send_login()
         self.assert_field_value(self.get_username_field(), self.login_name)
@@ -72,6 +76,7 @@ class LoginPage(Base):
         self.click_login_button()
         self.get_current_url()
         self.assert_url('https://www.saucedemo.com/inventory.html')
+        Logger.add_end_step(url=self.driver.current_url, method='sign_in')
 
     def sign_in_with_empty_login(self):
         self.driver.get(self.url)
