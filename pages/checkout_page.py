@@ -2,7 +2,8 @@ from base.base_class import Base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import allure
+from utilities.logger import Logger
 
 
 class CheckoutPage(Base):
@@ -70,16 +71,19 @@ class CheckoutPage(Base):
     #Methods
 
     def order_data_entry(self):
-        self.click_first_name()
-        self.send_first_name()
-        self.assert_field_value(self.get_first_name(), self.name)
-        self.click_last_name()
-        self.send_last_name()
-        self.assert_field_value(self.get_last_name(), self.last_name)
-        self.click_postal_code()
-        self.send_postal_code()
-        self.assert_field_value(self.get_postal_code(), self.postal_code)
-        self.get_screenshot("checkout_page")
-        self.click_continue_button()
-        self.get_current_url()
-        self.assert_url('https://www.saucedemo.com/checkout-step-two.html')
+        with allure.step("Order data entry"):
+            Logger.add_start_step(method='order_data_entry')
+            self.click_first_name()
+            self.send_first_name()
+            self.assert_field_value(self.get_first_name(), self.name)
+            self.click_last_name()
+            self.send_last_name()
+            self.assert_field_value(self.get_last_name(), self.last_name)
+            self.click_postal_code()
+            self.send_postal_code()
+            self.assert_field_value(self.get_postal_code(), self.postal_code)
+            self.get_screenshot("checkout_page")
+            self.click_continue_button()
+            self.get_current_url()
+            self.assert_url('https://www.saucedemo.com/checkout-step-two.html')
+            Logger.add_end_step(url=self.driver.current_url, method='order_data_entry')

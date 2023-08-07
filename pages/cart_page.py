@@ -2,8 +2,9 @@ from base.base_class import Base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import allure
 from pages.main_page import MainPage
+from utilities.logger import Logger
 
 
 class CartPage(Base):
@@ -39,9 +40,12 @@ class CartPage(Base):
     #Methods
 
     def to_order_item_1(self):
-        self.get_screenshot("cart_page")
-        self.assert_item_text(MainPage(self.driver).get_item_1_value(), self.get_cart_item_1_value())
-        self.assert_item_text(MainPage(self.driver).get_item_1_price(), self.get_cart_item_1_price())
-        self.click_checkout_button()
-        self.get_current_url()
-        self.assert_url('https://www.saucedemo.com/checkout-step-one.html')
+        with allure.step("To order item 1"):
+            Logger.add_start_step(method='to_order_item_1')
+            self.get_screenshot("cart_page")
+            self.assert_item_text(MainPage(self.driver).get_item_1_value(), self.get_cart_item_1_value())
+            self.assert_item_text(MainPage(self.driver).get_item_1_price(), self.get_cart_item_1_price())
+            self.click_checkout_button()
+            self.get_current_url()
+            self.assert_url('https://www.saucedemo.com/checkout-step-one.html')
+            Logger.add_end_step(url=self.driver.current_url, method='to_order_item_1')

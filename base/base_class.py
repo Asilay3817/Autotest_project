@@ -77,7 +77,7 @@ class Base():
     def get_screenshot(self, name):
         now_date = datetime.datetime.now().strftime("%Y.%m.%d.%H.%M")
         name_skreenshot = f"{name}-{now_date}.png"
-        self.driver.save_screenshot("/Users/asilay/Desktop/study/QA/Autotest_project/screen/" + name_skreenshot)
+        self.driver.save_screenshot("/Users/asilay/Desktop/study/QA/Autotest_project /screen/" + name_skreenshot)
 
 
     """Method scroll page"""

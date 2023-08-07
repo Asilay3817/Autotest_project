@@ -2,7 +2,8 @@ from base.base_class import Base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import allure
+from utilities.logger import Logger
 
 
 class FinishPage(Base):
@@ -38,8 +39,11 @@ class FinishPage(Base):
     #Methods
 
     def back_home(self):
-        self.get_screenshot("finish_page")
-        self.assert_text(self.get_complete_header(), "Thank you for your order!")
-        self.click_back_home_button()
-        self.get_current_url()
-        self.assert_url('https://www.saucedemo.com/inventory.html')
+        with allure.step("Back home"):
+            Logger.add_start_step(method='back_home')
+            self.get_screenshot("finish_page")
+            self.assert_text(self.get_complete_header(), "Thank you for your order!")
+            self.click_back_home_button()
+            self.get_current_url()
+            self.assert_url('https://www.saucedemo.com/inventory.html')
+            Logger.add_end_step(url=self.driver.current_url, method='back_home')

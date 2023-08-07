@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 
 from pages.cart_page import CartPage
@@ -8,7 +9,7 @@ from pages.main_page import MainPage
 from pages.overview_page import OverviewPage
 from conftest import set_up
 
-
+@allure.description("Test by product1")
 def test_by_product1(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()

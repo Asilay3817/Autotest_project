@@ -2,8 +2,9 @@ from base.base_class import Base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import allure
 from pages.main_page import MainPage
+from utilities.logger import Logger
 
 
 class OverviewPage(Base):
@@ -46,10 +47,13 @@ class OverviewPage(Base):
     #Methods
 
     def finish_order(self):
-        self.get_screenshot("overview_page")
-        self.assert_item_text(MainPage(self.driver).get_item_1_value(), self.get_item_1_overview_value())
-        self.assert_item_text(MainPage(self.driver).get_item_1_price(), self.get_item_1_overview_price())
-        self.assert_total_price(MainPage(self.driver).get_item_1_price(), self.get_total_price())
-        self.click_finish_button()
-        self.get_current_url()
-        self.assert_url('https://www.saucedemo.com/checkout-complete.html')
+        with allure.step("Finish order"):
+            Logger.add_start_step(method='finish_order')
+            self.get_screenshot("overview_page")
+            self.assert_item_text(MainPage(self.driver).get_item_1_value(), self.get_item_1_overview_value())
+            self.assert_item_text(MainPage(self.driver).get_item_1_price(), self.get_item_1_overview_price())
+            self.assert_total_price(MainPage(self.driver).get_item_1_price(), self.get_total_price())
+            self.click_finish_button()
+            self.get_current_url()
+            self.assert_url('https://www.saucedemo.com/checkout-complete.html')
+            Logger.add_end_step(url=self.driver.current_url, method='finish_order')

@@ -1,9 +1,12 @@
 import pytest
 from selenium import webdriver
 from pages.login_page import LoginPage
+import allure
 from conftest import set_up
 
+
 @pytest.mark.third
+@allure.description("Test login")
 def test_login(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()
@@ -22,6 +25,7 @@ def test_login(set_up):
 
 
 @pytest.mark.first
+@allure.description("Test login - user field is empty")
 def test_login_user_field_is_empty(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()
@@ -40,6 +44,7 @@ def test_login_user_field_is_empty(set_up):
 
 
 @pytest.mark.second
+@allure.description("Test login - password field is empty")
 def test_login_password_field_is_empty(set_up):
     from selenium.webdriver.chrome.options import Options
     o = Options()

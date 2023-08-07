@@ -2,6 +2,7 @@ from base.base_class import Base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
 
 from utilities.logger import Logger
 
@@ -67,28 +68,35 @@ class LoginPage(Base):
     #Methods
 
     def sign_in(self):
-        Logger.add_start_step(method='sign_in')
-        self.driver.get(self.url)
-        self.send_login()
-        self.assert_field_value(self.get_username_field(), self.login_name)
-        self.send_password()
-        self.assert_field_value(self.get_password_field(), self.login_password)
-        self.click_login_button()
-        self.get_current_url()
-        self.assert_url('https://www.saucedemo.com/inventory.html')
-        Logger.add_end_step(url=self.driver.current_url, method='sign_in')
+        with allure.step("Sign in"):
+            Logger.add_start_step(method='sign_in')
+            self.driver.get(self.url)
+            self.send_login()
+            self.assert_field_value(self.get_username_field(), self.login_name)
+            self.send_password()
+            self.assert_field_value(self.get_password_field(), self.login_password)
+            self.click_login_button()
+            self.get_current_url()
+            self.assert_url('https://www.saucedemo.com/inventory.html')
+            Logger.add_end_step(url=self.driver.current_url, method='sign_in')
 
     def sign_in_with_empty_login(self):
-        self.driver.get(self.url)
-        self.send_password()
-        self.assert_field_value(self.get_password_field(), self.login_password)
-        self.click_login_button()
-        self.assert_error_message(self.get_error_message())
+        with allure.step("Sign in with empty login"):
+            Logger.add_start_step(method='sign_in_with_empty_login')
+            self.driver.get(self.url)
+            self.send_password()
+            self.assert_field_value(self.get_password_field(), self.login_password)
+            self.click_login_button()
+            self.assert_error_message(self.get_error_message())
+            Logger.add_end_step(url=self.driver.current_url, method='sign_in_with_empty_login')
 
 
     def sign_in_with_empty_password(self):
-        self.driver.get(self.url)
-        self.send_login()
-        self.assert_field_value(self.get_username_field(), self.login_name)
-        self.click_login_button()
-        self.assert_error_message(self.get_error_message())
+        with allure.step("Sign in with empty password"):
+            Logger.add_start_step(method='sign_in_with_empty_password')
+            self.driver.get(self.url)
+            self.send_login()
+            self.assert_field_value(self.get_username_field(), self.login_name)
+            self.click_login_button()
+            self.assert_error_message(self.get_error_message())
+            Logger.add_end_step(url=self.driver.current_url, method='sign_in_with_empty_password')
